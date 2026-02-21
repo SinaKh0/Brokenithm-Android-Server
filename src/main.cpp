@@ -15,6 +15,9 @@ std::string remote_address;
 uint16_t remote_port = 52468;
 uint16_t server_port = 52468;
 bool tcp_mode = false;
+bool air_only_mode = false;
+bool slider_only_mode = false;
+
 
 size_t tcp_buffer_size = 96;
 size_t tcp_receive_threshold = 48;
@@ -340,8 +343,10 @@ void threadInputReceive(SOCKET sHost, IPCMemoryInfo *memory)
         if(packet_len >= sizeof(PacketInput) && buffer[1] == 'I' && buffer[2] == 'N' && buffer[3] == 'P')
         {
             PacketInput *pkt = reinterpret_cast<PacketInput*>(buffer);
-            memcpy(memory->airIoStatus, pkt->airIoStatus, sizeof(pkt->airIoStatus));
-            memcpy(memory->sliderIoStatus, pkt->sliderIoStatus, sizeof(pkt->sliderIoStatus));
+            if (!air_only_mode)
+                memcpy(memory->sliderIoStatus, pkt->sliderIoStatus, sizeof(pkt->sliderIoStatus));
+            if (!slider_only_mode)
+                memcpy(memory->airIoStatus, pkt->airIoStatus, sizeof(pkt->airIoStatus));
             memory->testBtn = pkt->testBtn;
             memory->serviceBtn = pkt->serviceBtn;
             current_packet_id = ntohl(pkt->packetId);
@@ -442,7 +447,7 @@ void printInfo()
 void checkArgs(int argc, char* argv[])
 {
     int opt;
-    while((opt = getopt(argc, argv, "p:Tr:")) != -1)
+    while((opt = getopt(argc, argv, "p:Tr:as")) != -1)
     {
         switch(opt)
         {
@@ -455,6 +460,12 @@ void checkArgs(int argc, char* argv[])
         case 'r':
             tcp_receive_threshold = atoi(optarg);
             tcp_buffer_size = tcp_receive_threshold * 2;
+            break;
+        case 'a':
+            air_only_mode = true;
+            break;
+        case 's':
+            slider_only_mode = true;
             break;
         }
     }

@@ -1,0 +1,29 @@
+# Build output
+*.exe
+*.o
+*.a
+*.dll
+*.so
+*.dylib
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+install_manifest.txt
+CTestTestfile.cmake
+_deps/
+
+# MSYS2/MinGW
+*.stackdump
+
+# IDE
+.vscode/
+.idea/
+*.user
+
+# Misc
+*.log
+.DS_Store
+Thumbs.db

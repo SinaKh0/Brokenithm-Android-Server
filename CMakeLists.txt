@@ -25,3 +25,5 @@ INCLUDE_DIRECTORIES(src)
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR})
 
 TARGET_LINK_LIBRARIES(brokenithm ws2_32)
+
+SET(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
