@@ -1,6 +1,6 @@
 ## Brokenithm-Android-Server
 
-The Windows server of [Brokenithm-Android](https://github.com/tindy2013/Brokenithm-Android) and [Brokenithm-Hands-Android](https://github.com/SinaKh0/Brokenithm-Hands-Android).
+The Windows server of [Brokenithm-Slide-Android](https://github.com/SinaKh0/Brokenithm-Slide-Android) and [Brokenithm-Hands-Android](https://github.com/SinaKh0/Brokenithm-Hands-Android).
 
 This fork adds `-a` (air only) and `-s` (slider only) flags, allowing two server instances to run simultaneously, one handling slider input from a tablet, one handling air input from a phone, without conflicting over shared memory.
 
